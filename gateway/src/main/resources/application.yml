@@ -1,0 +1,62 @@
+server:
+  port: 6000
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://magnus.eureka:7000/eureka/,http://magnus.eureka:7001/eureka/
+    register-with-eureka: true
+    registry-fetch-interval-seconds: 500000000
+    filter-only-up-instances: true
+    eureka-connection-idle-timeout-seconds: 3000000
+    eureka-server-connect-timeout-seconds: 50000000
+  instance:
+    prefer-ip-address: false
+    instance-id: ${spring.cloud.client.ip-address}:${server.port}
+    lease-renewal-interval-in-seconds: 600000
+    lease-expiration-duration-in-seconds: 600000
+
+spring:
+    application:
+      name: gateway
+    redis:
+      database: 4
+      host: localhost
+      port: 6379
+      password:
+    cloud:
+      gateway:
+        discovery:
+          locator:
+            enabled: true  # 从注册中心获取服务列表
+            lower-case-service-id: true
+        routes:
+          - id: service-payment
+            uri: lb://service-payment
+            order: -1
+            predicates:  #断言是用来决定某个路由是否由这个route处理
+              - Path=/service-payment/**
+              - Before=2030-12-16T15:53:22.999+08:00[Asia/Shanghai]
+            filters:
+              - StripPrefix=1
+              - name: RequestRateLimiter
+                args:
+                  redis-rate-limiter:
+                    replenishRate: 1
+                    burstCapacity: 60
+                    requestedTokens: 60
+                  key-resolver: "#{@ipKeyResolver}"
+          - id: service-order
+            uri: lb://service-order
+            order: -1
+            predicates:
+              - Path=/service-order/**
+            filters:
+              - StripPrefix=1
+              - name: RequestRateLimiter
+                args:
+                  redis-rate-limiter:
+                    replenishRate: 1
+                    burstCapacity: 60
+                    requestedTokens: 60
+                  key-resolver: "#{@ipKeyResolver}"

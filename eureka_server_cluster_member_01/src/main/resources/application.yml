@@ -1,0 +1,20 @@
+spring:
+  application:
+    name: magnus-eureka-server
+  security:
+    user:
+      name: root
+      password: root
+
+server:
+  port: 7001
+
+eureka:
+  instance:
+    hostname: eureka_01
+    instanceId: eureka_01
+  client:
+    registerWithEureka: false
+    fetchRegistry: false
+    serviceUrl:
+      defaultZone: http://magnus.eureka:7000/eureka/

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.demo.magnus.mapper.OrderMapper">
+    <insert id="insertOrder" parameterType="magnus.distributed.entity.Order" useGeneratedKeys="true">
+        insert into managee_order(serial_no) values(#{serialNo});
+    </insert>
+
+    <resultMap id="orderById" type="magnus.distributed.entity.Order">
+        <result column="id" javaType="java.lang.Long" property="id"></result>
+        <result column="serial_no" javaType="java.lang.String" property="serialNo"></result>
+    </resultMap>
+    <select id="selectOrderById" resultType="magnus.distributed.entity.Order" resultMap="orderById">
+        select * from managee_order where id=#{id};
+    </select>
+</mapper>
