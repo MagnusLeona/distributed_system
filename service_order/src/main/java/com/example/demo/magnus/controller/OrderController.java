@@ -1,5 +1,7 @@
 package com.example.demo.magnus.controller;
 
+import com.example.demo.config.redis.MagnusRedisLock;
+import com.example.demo.config.redis.MagnusRedisService;
 import com.example.demo.magnus.feign.service.PaymentFeignService;
 import com.example.demo.magnus.service.OrderService;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
@@ -10,6 +12,10 @@ import magnus.distributed.entity.Order;
 import magnus.distributed.response.MagnusResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.loadbalancer.LoadBalancerClient;
+import org.springframework.dao.DataAccessException;
+import org.springframework.data.redis.connection.RedisConnection;
+import org.springframework.data.redis.core.RedisCallback;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
@@ -19,6 +25,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
 
 @RestController
 @Slf4j
@@ -26,15 +33,19 @@ public class OrderController {
 
     @Resource
     OrderService orderService;
-
     @Resource
     RestTemplate restTemplate;
-
     @Autowired
     PaymentFeignService paymentFeignService;
+    @Autowired
+    MagnusRedisLock redisLock;
+    @Autowired
+    MagnusRedisService magnusRedisService;
 
-    @Resource
-    LoadBalancerClient loadBalancerClient;
+    @GetMapping("order/get")
+    public MagnusResponse getOrderById(@RequestParam Long id) {
+        return new MagnusResponse(200, "success", orderService.selectOrderById(id));
+    }
 
     @PostMapping("order/insert")
     public MagnusResponse insertOrder(@RequestBody Order order) {
@@ -44,6 +55,28 @@ public class OrderController {
     @GetMapping("order/get/{id}")
     public MagnusResponse getOrder(@PathVariable Long id) {
         return new MagnusResponse(200, "Success", orderService.selectOrderById(id));
+    }
+
+    @GetMapping("order/cache/{id}")
+    public MagnusResponse cacheOrder(@PathVariable Long id) throws InterruptedException {
+        if (magnusRedisService.exist(String.valueOf(id))) {
+            // 存在这个key，则直接返回
+            Object o = magnusRedisService.get(String.valueOf(id));
+            log.info("cache hit", o);
+            return new MagnusResponse(200, "success", o);
+        } else {
+            // 没有值
+            boolean b = redisLock.tryLock("cacheKey" + id);
+            if (b) {
+                Order order = orderService.selectOrderById(id);
+                magnusRedisService.set(String.valueOf(id), order, 10000);
+                return new MagnusResponse(200, "success", order);
+            } else {
+                Thread.sleep(100);
+                cacheOrder(id);
+            }
+        }
+        return null;
     }
 
     @RequestMapping("order/{orderId}/get/payment/{paymentId}")
