@@ -4,6 +4,7 @@ import com.example.demo.config.redis.MagnusRedisLock;
 import com.example.demo.config.redis.MagnusRedisService;
 import com.example.demo.magnus.feign.service.PaymentFeignService;
 import com.example.demo.magnus.service.OrderService;
+import com.netflix.discovery.converters.Auto;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 import com.netflix.hystrix.contrib.javanica.conf.HystrixPropertiesManager;
@@ -16,6 +17,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.data.redis.connection.RedisConnection;
 import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
@@ -41,9 +43,12 @@ public class OrderController {
     MagnusRedisLock redisLock;
     @Autowired
     MagnusRedisService magnusRedisService;
+    @Autowired
+    KafkaTemplate<String, String> kafkaTemplate;
 
     @GetMapping("order/get")
     public MagnusResponse getOrderById(@RequestParam Long id) {
+        kafkaTemplate.send("magnus", "abc" + id);
         return new MagnusResponse(200, "success", orderService.selectOrderById(id));
     }
 
@@ -79,12 +84,12 @@ public class OrderController {
         return null;
     }
 
+//    @HystrixCommand(fallbackMethod = "getOrderAndPaymentFallback", commandProperties = {
+//            @HystrixProperty(name = HystrixPropertiesManager.CIRCUIT_BREAKER_REQUEST_VOLUME_THRESHOLD, value = "10"),
+//            @HystrixProperty(name = HystrixPropertiesManager.CIRCUIT_BREAKER_ERROR_THRESHOLD_PERCENTAGE, value = "50"),
+//            @HystrixProperty(name = HystrixPropertiesManager.CIRCUIT_BREAKER_SLEEP_WINDOW_IN_MILLISECONDS, value = "5000")
+//    })
     @RequestMapping("order/{orderId}/get/payment/{paymentId}")
-    @HystrixCommand(fallbackMethod = "getOrderAndPaymentFallback", commandProperties = {
-            @HystrixProperty(name = HystrixPropertiesManager.CIRCUIT_BREAKER_REQUEST_VOLUME_THRESHOLD, value = "10"),
-            @HystrixProperty(name = HystrixPropertiesManager.CIRCUIT_BREAKER_ERROR_THRESHOLD_PERCENTAGE, value = "50"),
-            @HystrixProperty(name = HystrixPropertiesManager.CIRCUIT_BREAKER_SLEEP_WINDOW_IN_MILLISECONDS, value = "5000")
-    })
     public MagnusResponse getOrderAndPayment(@PathVariable Long orderId, @PathVariable Long paymentId) {
         log.info("[Service_Order]::[getOrderAndPayment]");
         Map result = new HashMap();
