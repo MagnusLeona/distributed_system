@@ -66,6 +66,4 @@ public class MagnusKafkaProducer {
         kafkaProducer = new KafkaProducer<>(properties);
         kafkaProducer.initTransactions();
     }
-
-
 }

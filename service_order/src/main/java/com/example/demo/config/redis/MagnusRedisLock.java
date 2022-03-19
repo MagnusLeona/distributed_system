@@ -10,19 +10,22 @@ import java.util.concurrent.TimeUnit;
 public class MagnusRedisLock {
 
     @Autowired
-    public RedisTemplate redisTemplate;
+    public RedisTemplate<String, Object> redisTemplate;
 
     public boolean tryLock(String key) {
+        // Redis单机锁，redission项目开发者建议的使用方式，较为简单，但是非强一致性
         try {
-            Boolean locked = redisTemplate.opsForValue().setIfAbsent(key, 1, 15, TimeUnit.MINUTES);
-            return locked;
-        } catch (
-                Exception e) {
+            return Boolean.TRUE.equals(redisTemplate.opsForValue().setIfAbsent(key, 1, 15, TimeUnit.SECONDS));
+        } catch (Exception e) {
             return false;
         }
     }
 
-    public void unlock(String key) {
-        redisTemplate.delete(key);
+    public boolean unlock(String key) {
+        try {
+            return Boolean.TRUE.equals(redisTemplate.delete(key));
+        } catch (Exception e) {
+            return unlock(key);
+        }
     }
 }

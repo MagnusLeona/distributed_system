@@ -1,5 +1,6 @@
 package com.example.demo.magnus.service.impl;
 
+import com.example.demo.config.common.service.RedisService;
 import com.example.demo.magnus.mapper.OrderMapper;
 import com.example.demo.magnus.service.OrderService;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCollapser;
@@ -7,12 +8,20 @@ import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 import com.netflix.hystrix.contrib.javanica.conf.HystrixPropertiesManager;
 import com.netflix.hystrix.strategy.properties.HystrixPropertiesStrategy;
+import magnus.distributed.dict.MagnusRedisDict;
 import magnus.distributed.entity.Order;
+import magnus.distributed.enums.OrderStatusEnum;
+import magnus.distributed.exceptions.RedisOpsException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.support.TransactionTemplate;
 
 import javax.annotation.Resource;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.Future;
 
 @Service
@@ -20,6 +29,12 @@ public class OrderServiceImpl implements OrderService {
 
     @Resource
     OrderMapper orderMapper;
+
+    @Autowired
+    RedisService redisService;
+
+    @Autowired
+    TransactionTemplate transactionTemplate;
 
     @Override
     public int insertOrder(Order order) {
@@ -62,7 +77,7 @@ public class OrderServiceImpl implements OrderService {
         List list = new ArrayList();
 
         for (int i = 0; i < ids.size(); i++) {
-            list.add(new Order((long) i, ids.get(i).toString()));
+            list.add(new Order((long) i, ids.get(i).toString(), 0));
         }
         System.out.println("返回的数据：" + list);
         return list;
@@ -99,6 +114,47 @@ public class OrderServiceImpl implements OrderService {
     public String failureFallback() {
         System.out.println("FailureFallBack invoked");
         return "failure---command";
+    }
+
+    @Override
+    @Transactional
+    public void orderSuspend(Long id) {
+        // 先修改数据库
+        orderMapper.updateOrderStatus(id, OrderStatusEnum.CREATED.get(), OrderStatusEnum.HANGED.get());
+        // 然后放到redis任务队列中
+        redisService.zadd(MagnusRedisDict.REDIS_KEY_ORDER_TOBE_WAITING, id, (double) Instant.now().toEpochMilli());
+        // todo: 使用的是系统时间戳，那么就和当前服务器的时间绑定了，那么分布式架构层面上就一定会出现时钟不同步的问题。
+        // fixme: 怎么解决？
+    }
+
+    @Override
+    @Transactional
+    public void cancelSuspendedOrder(Long id) {
+        // 先锁行数据
+        Order order = orderMapper.selectOrderByIdForUpdate(id);
+        if (order.getStatus().compareTo(OrderStatusEnum.HANGED.get()) == 0) {
+            // 如果相等
+            orderMapper.updateOrderStatus(id, OrderStatusEnum.HANGED.get(), OrderStatusEnum.CANCELED.get());
+        }
+        // 如果以上步骤均无问题，则从挂起的订单列表删除此订单
+        redisService.zremove(MagnusRedisDict.REDIS_KEY_ORDER_TOBE_WAITING, String.valueOf(id));
+    }
+
+    @Override
+    @Transactional
+    public boolean payForSuspendedOrder(Long id) {
+        // 支付挂起的订单
+        // 需要放到事务中去执行
+        Order order = orderMapper.selectOrderByIdForUpdate(id);
+        // select for update将会锁行数据
+        // todo: 是否可以考虑只返回status
+        if (order.getStatus().equals(OrderStatusEnum.HANGED.get())) {
+            // 如果当前是挂起的状态，则继续执行操作
+            orderMapper.updateOrderStatus(id, OrderStatusEnum.HANGED.get(), OrderStatusEnum.PAID.get());
+            return true;
+        }
+        // 否则呢？
+        return false;
     }
 }
 

@@ -2,6 +2,7 @@ package com.example.demo.config.redis;
 
 import io.lettuce.core.ReadFrom;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
@@ -18,34 +19,35 @@ import java.util.Map;
 @PropertySource("classpath:properties/datasource.properties")
 public class MagnusRedisConfiguration {
 
-        @Value("${redis.host}")
-        public String host;
-        @Value("${redis.port}")
-        public int port;
-        @Value("${redis.timeout}")
-        public int timeout;
-        @Value("${redis.commonDatabase}")
-        public int commonDatabase;
+    @Value("${redis.host}")
+    public String host;
+    @Value("${redis.port}")
+    public int port;
+    @Value("${redis.timeout}")
+    public int timeout;
+    @Value("${redis.commonDatabase}")
+    public int commonDatabase;
 
-        public LettuceConnectionFactory lettuceConnectionFactory(int db) {
-                RedisStandaloneConfiguration redisStandaloneConfiguration = new RedisStandaloneConfiguration();
-                redisStandaloneConfiguration.setPort(port);
-                redisStandaloneConfiguration.setHostName(host);
-                redisStandaloneConfiguration.setDatabase(commonDatabase);
-                LettuceClientConfiguration lettuceClientConfiguration = LettuceClientConfiguration.builder()
-                        .readFrom(ReadFrom.REPLICA_PREFERRED)
-                        .commandTimeout(Duration.ofMillis(timeout))
-                        .build();
-                LettuceConnectionFactory lettuceConnectionFactory = new LettuceConnectionFactory(redisStandaloneConfiguration, lettuceClientConfiguration);
-                lettuceConnectionFactory.setDatabase(db);
-                return lettuceConnectionFactory;
-        }
+    @Bean
+    public LettuceConnectionFactory lettuceConnectionFactory(int db) {
+        RedisStandaloneConfiguration redisStandaloneConfiguration = new RedisStandaloneConfiguration();
+        redisStandaloneConfiguration.setPort(port);
+        redisStandaloneConfiguration.setHostName(host);
+//                redisStandaloneConfiguration.setDatabase(commonDatabase);
+        LettuceClientConfiguration lettuceClientConfiguration = LettuceClientConfiguration.builder()
+                .commandTimeout(Duration.ofMillis(timeout))
+                .build();
+        //                lettuceConnectionFactory.setDatabase(db);
+        return new LettuceConnectionFactory(redisStandaloneConfiguration, lettuceClientConfiguration);
+    }
 
-        public RedisTemplate commonRedisTemplate() {
-                RedisTemplate<String, Map> redisTemplate = new RedisTemplate<String, Map>();
-                redisTemplate.setKeySerializer(new StringRedisSerializer());
-                redisTemplate.setValueSerializer(new GenericJackson2JsonRedisSerializer());
-                redisTemplate.setConnectionFactory(lettuceConnectionFactory(commonDatabase));
-                return redisTemplate;
-        }
+    @Bean
+    public RedisTemplate redisTemplate() {
+        RedisTemplate<String, Object> redisTemplate = new RedisTemplate<>();
+        redisTemplate.setKeySerializer(new StringRedisSerializer());
+        redisTemplate.setHashKeySerializer(new StringRedisSerializer());
+        redisTemplate.setValueSerializer(new GenericJackson2JsonRedisSerializer());
+        redisTemplate.setConnectionFactory(lettuceConnectionFactory(commonDatabase));
+        return redisTemplate;
+    }
 }

@@ -7,6 +7,7 @@ import org.apache.ibatis.session.ExecutorType;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.mybatis.spring.annotation.MapperScan;
 import org.mybatis.spring.transaction.SpringManagedTransactionFactory;
@@ -16,11 +17,16 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionManager;
+import org.springframework.transaction.support.TransactionTemplate;
+import org.springframework.web.servlet.view.tiles3.SpringLocaleResolver;
 
 import javax.sql.DataSource;
+import java.io.IOException;
 import java.util.Properties;
 
 @Configuration
@@ -57,30 +63,31 @@ public class DataSourceConfiguration {
     }
 
     @Bean
-    public SqlSessionFactory sqlSessionFactory() {
-        SqlSessionFactoryBuilder sqlSessionFactoryBuilder = new SqlSessionFactoryBuilder();
+    public SqlSessionFactory sqlSessionFactory() throws Exception {
         org.apache.ibatis.session.Configuration configuration = new org.apache.ibatis.session.Configuration();
         Environment.Builder builder = new Environment.Builder("1");
         Environment build = builder.dataSource(dataSource()).transactionFactory(new SpringManagedTransactionFactory()).build();
         configuration.setEnvironment(build);
         configuration.setCacheEnabled(true);
         configuration.setLogImpl(Log4j2Impl.class);
-        SqlSessionFactory sqlSessionFactory = sqlSessionFactoryBuilder.build(configuration);
-        return sqlSessionFactory;
+        SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
+        sqlSessionFactoryBean.setConfiguration(configuration);
+        PathMatchingResourcePatternResolver pathMatchingResourcePatternResolver = new PathMatchingResourcePatternResolver();
+        sqlSessionFactoryBean.setMapperLocations(pathMatchingResourcePatternResolver.getResources("classpath:/mapper/*"));
+        sqlSessionFactoryBean.setDataSource(dataSource());
+        return sqlSessionFactoryBean.getObject();
     }
 
     @Bean
     @Primary
-    public SqlSession sqlSession() {
-        SqlSessionTemplate sqlSessionTemplate = new SqlSessionTemplate(sqlSessionFactory(), ExecutorType.SIMPLE);
-        return sqlSessionTemplate;
+    public SqlSession sqlSession() throws Exception {
+        return new SqlSessionTemplate(sqlSessionFactory(), ExecutorType.SIMPLE);
     }
 
     @Bean
     @Qualifier("batch")
-    public SqlSession sqlSessionBatch() {
-        SqlSessionTemplate sqlSessionTemplate = new SqlSessionTemplate(sqlSessionFactory(), ExecutorType.BATCH);
-        return sqlSessionTemplate;
+    public SqlSession sqlSessionBatch() throws Exception {
+        return new SqlSessionTemplate(sqlSessionFactory(), ExecutorType.BATCH);
     }
 
     @Bean
@@ -91,9 +98,16 @@ public class DataSourceConfiguration {
     }
 
     @Bean
-    public TransactionManager transactionManager() {
+    public PlatformTransactionManager transactionManager() {
         DataSourceTransactionManager dataSourceTransactionManager = new DataSourceTransactionManager();
         dataSourceTransactionManager.setDataSource(dataSource());
         return dataSourceTransactionManager;
+    }
+
+    @Bean
+    public TransactionTemplate transactionTemplate() {
+        TransactionTemplate transactionTemplate = new TransactionTemplate();
+        transactionTemplate.setTransactionManager(transactionManager());
+        return transactionTemplate;
     }
 }

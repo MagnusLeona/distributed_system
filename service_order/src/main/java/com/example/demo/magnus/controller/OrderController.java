@@ -4,19 +4,10 @@ import com.example.demo.config.redis.MagnusRedisLock;
 import com.example.demo.config.redis.MagnusRedisService;
 import com.example.demo.magnus.feign.service.PaymentFeignService;
 import com.example.demo.magnus.service.OrderService;
-import com.netflix.discovery.converters.Auto;
-import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
-import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
-import com.netflix.hystrix.contrib.javanica.conf.HystrixPropertiesManager;
 import lombok.extern.slf4j.Slf4j;
 import magnus.distributed.entity.Order;
 import magnus.distributed.response.MagnusResponse;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cloud.client.loadbalancer.LoadBalancerClient;
-import org.springframework.dao.DataAccessException;
-import org.springframework.data.redis.connection.RedisConnection;
-import org.springframework.data.redis.core.RedisCallback;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
@@ -27,7 +18,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
-import java.util.concurrent.TimeUnit;
 
 @RestController
 @Slf4j
@@ -84,7 +74,7 @@ public class OrderController {
         return null;
     }
 
-//    @HystrixCommand(fallbackMethod = "getOrderAndPaymentFallback", commandProperties = {
+    //    @HystrixCommand(fallbackMethod = "getOrderAndPaymentFallback", commandProperties = {
 //            @HystrixProperty(name = HystrixPropertiesManager.CIRCUIT_BREAKER_REQUEST_VOLUME_THRESHOLD, value = "10"),
 //            @HystrixProperty(name = HystrixPropertiesManager.CIRCUIT_BREAKER_ERROR_THRESHOLD_PERCENTAGE, value = "50"),
 //            @HystrixProperty(name = HystrixPropertiesManager.CIRCUIT_BREAKER_SLEEP_WINDOW_IN_MILLISECONDS, value = "5000")
@@ -137,5 +127,13 @@ public class OrderController {
     public MagnusResponse testFailure() {
         String s = orderService.testHystrixCommandFailure();
         return new MagnusResponse(200, "OK", s);
+    }
+
+    @RequestMapping("/order/suspend")
+    public MagnusResponse orderSuspend(@RequestParam Map<String, Object> map) {
+        // 将订单挂起，修改订单状态为待支付，并且将当前处理订单的时间戳放入redis中
+        Long orderId = (Long) map.get("orderId");
+        // 需修改order状态
+        return new MagnusResponse(200, "OK", null);
     }
 }

@@ -12,6 +12,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Properties;
 
 @SpringBootApplication
@@ -32,23 +33,21 @@ public class KafkaConsumerMain {
         String topicname = "magnus";
         KafkaConsumerMain kafkaConsumerMain = new KafkaConsumerMain();
         Properties properties = kafkaConsumerMain.loadProperties();
-        properties.put("group.id", "magnus");
+        properties.put("group.id", "magnus-test-consumer-1");
         properties.put("enable.auto.commit", "true");
         properties.put("auto.commit.interval.ms", "1000");
         properties.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
         properties.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
-        if (properties != null) {
-            KafkaConsumer kafkaConsumer = new KafkaConsumer<String, String>(properties);
-            kafkaConsumer.subscribe(Arrays.asList(topicname));
+        KafkaConsumer<String, String> kafkaConsumer = new KafkaConsumer<>(properties);
+        kafkaConsumer.subscribe(List.of(topicname));
 
-            System.out.println("begin~");
+        System.out.println("begin~");
 
-            while (true) {
-                ConsumerRecords<String, String> poll = kafkaConsumer.poll(200);
-                for (ConsumerRecord<String, String> record : poll) {
-                    String value = record.value();
-                    System.out.println(value);
-                }
+        while (true) {
+            ConsumerRecords<String, String> poll = kafkaConsumer.poll(200);
+            for (ConsumerRecord<String, String> record : poll) {
+                String value = record.value();
+                System.out.println(value);
             }
         }
     }

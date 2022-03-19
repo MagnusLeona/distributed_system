@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 public class MagnusRedisService {
 
     @Autowired
-    RedisTemplate redisTemplate;
+    RedisTemplate<String, Object> redisTemplate;
 
     public Object get(String key) {
         return redisTemplate.opsForValue().get(key);
@@ -19,6 +19,6 @@ public class MagnusRedisService {
     }
 
     public boolean exist(String key) {
-        return redisTemplate.hasKey(key);
+        return Boolean.TRUE.equals(redisTemplate.hasKey(key));
     }
 }

@@ -3,14 +3,14 @@
 
 <mapper namespace="com.example.demo.magnus.mapper.OrderMapper">
     <insert id="insertOrder" parameterType="magnus.distributed.entity.Order" useGeneratedKeys="true">
-        insert into managee_order(serial_no) values(#{serialNo});
+        insert into managee_order(id,serial_no,status) values(#{id},#{serialNo},#{status});
     </insert>
 
-    <resultMap id="orderById" type="magnus.distributed.entity.Order">
-        <result column="id" javaType="java.lang.Long" property="id"></result>
-        <result column="serial_no" javaType="java.lang.String" property="serialNo"></result>
-    </resultMap>
-    <select id="selectOrderById" resultType="magnus.distributed.entity.Order" resultMap="orderById">
-        select * from managee_order where id=#{id};
-    </select>
+<!--    <resultMap id="orderById" type="magnus.distributed.entity.Order">-->
+<!--        <result column="id" javaType="java.lang.Long" property="id"/>-->
+<!--        <result column="serial_no" javaType="java.lang.String" property="serialNo"/>-->
+<!--    </resultMap>-->
+<!--    <select id="selectOrderById" resultType="magnus.distributed.entity.Order" resultMap="orderById">-->
+<!--        select * from managee_order where id=#{id};-->
+<!--    </select>-->
 </mapper>

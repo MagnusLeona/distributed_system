@@ -12,4 +12,5 @@ import java.io.Serializable;
 public class Order implements Serializable {
     public Long id;
     public String serialNo;
+    public Integer status;
 }
