@@ -25,7 +25,9 @@ public interface OrderService {
 
     void orderSuspend(Long id);             // 挂起订单
 
-    void cancelSuspendedOrder(Long id);             // 取消挂起的订单
+    boolean cancelSuspendedOrder(Long id);             // 取消挂起的订单
 
-    boolean payForSuspendedOrder(Long id);             // 支付挂起的订单
+    boolean cancelSuspendedOrderByHand(Long id) throws Exception;
+
+    boolean payForSuspendedOrder(Long id) throws Exception;             // 支付挂起的订单
 }

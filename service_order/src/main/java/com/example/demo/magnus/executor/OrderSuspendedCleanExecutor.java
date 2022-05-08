@@ -1,25 +1,26 @@
 package com.example.demo.magnus.executor;
 
+import com.alibaba.fastjson.JSON;
 import com.example.demo.config.common.service.RedisService;
-import com.example.demo.config.redis.MagnusRedisLock;
 import com.example.demo.magnus.service.OrderService;
 import lombok.extern.slf4j.Slf4j;
 import magnus.distributed.dict.MagnusRedisDict;
-import org.apache.tomcat.util.threads.ThreadPoolExecutor;
-import org.springframework.beans.factory.InitializingBean;
+import magnus.distributed.domain.delay.queue.DelayedJob;
+import magnus.distributed.entity.Order;
+import magnus.distributed.executor.DelayJobHandlerExecutor;
+import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.support.TransactionTemplate;
 
+import javax.annotation.PostConstruct;
 import java.time.Instant;
-import java.util.Optional;
-import java.util.Set;
+import java.util.Objects;
 import java.util.concurrent.*;
 
 @Component
 @Slf4j
-public class OrderSuspendedCleanExecutor implements InitializingBean {
+public class OrderSuspendedCleanExecutor implements DelayJobHandlerExecutor, DisposableBean {
 
     @Value("${executor.core-pool-size}")
     public Integer corePoolSize;
@@ -27,29 +28,20 @@ public class OrderSuspendedCleanExecutor implements InitializingBean {
     public Integer maxPoolSize;
     @Value("${executor.keep-alive-time}")
     public Long keepAliveTime;
-    @Value("${executor.period}")
-    public Integer period;
-    @Value("${executor.initial-delay}")
-    public Integer initialDelay;
 
-    ScheduledThreadPoolExecutor scheduledThreadPoolExecutor;
+    public volatile boolean destroyed = false;
+
     ThreadPoolExecutor threadPoolExecutor;
+    ThreadPoolExecutor handleJobExecutor;
 
     @Autowired
     public RedisService redisService;
 
     @Autowired
-    public MagnusRedisLock magnusRedisLock;
-
-    @Autowired
     public OrderService orderService;
 
-    @Autowired
-    public TransactionTemplate transactionTemplate;
-
-    @Override
-    public void afterPropertiesSet() throws Exception {
-        scheduledThreadPoolExecutor = new ScheduledThreadPoolExecutor(1);
+    @PostConstruct
+    public void postHandle() {
         threadPoolExecutor = new ThreadPoolExecutor(
                 corePoolSize,
                 maxPoolSize,
@@ -58,28 +50,69 @@ public class OrderSuspendedCleanExecutor implements InitializingBean {
                 new ArrayBlockingQueue<>(10),
                 Thread::new,
                 new ThreadPoolExecutor.DiscardOldestPolicy());
-        // 开启定时任务处理无效订单检查
-        scheduledThreadPoolExecutor.scheduleAtFixedRate(() -> threadPoolExecutor.submit(this::loopForExpiredOrders), initialDelay, period, TimeUnit.SECONDS);
+        handleJobExecutor = new ThreadPoolExecutor(
+                1,
+                1,
+                0,
+                TimeUnit.SECONDS,
+                new ArrayBlockingQueue<>(1),
+                Thread::new,
+                new ThreadPoolExecutor.CallerRunsPolicy());
+        handleJobExecutor.submit(this::handleDelayedJob);
     }
 
-    public void loopForExpiredOrders() {
-        log.info("start loop for expired orders");
-        // 1. 获取redis的锁
-        if (magnusRedisLock.tryLock("order-hang")) {
-            // 2.判断zset中是否有小于当前时间戳的时间
+    @Override
+    public void handleDelayedJob() {
+        if (log.isDebugEnabled()) {
+            log.debug("looping for expired orders");
+        }
+        for (; ; ) {
+            // 执行逻辑
+            // 每次从任务队列中获取一条记录
             try {
-                // 暂定一分钟
-                Optional<Set<Object>> hangedOrder = redisService.zrangeByScore(MagnusRedisDict.REDIS_KEY_ORDER_TOBE_WAITING, 0, (double) Instant.now().minusMillis(60 * 1000).toEpochMilli());
-                // 3.删除已失效的订单
-                hangedOrder.ifPresent(objects -> objects.forEach(o -> {
-                    // 将订单状态调整为已取消
-                    Long aLong = Long.valueOf(String.valueOf(o));
-                    System.out.println("along " + aLong);
-                    orderService.cancelSuspendedOrder((Long) o);
-                    log.info("suspended order " + o + " is canceled");
-                }));
-            } finally {
-                magnusRedisLock.unlock("order-hang");
+                if (destroyed) {
+                    break;
+                }
+                String timeoutOrder = redisService.blpop(MagnusRedisDict.REDIS_KEY_ORDER_TOBE_WAITING_HANDLING, 2000L);
+                // 正在执行的队列，如果执行完成，则走里面删除，否则超时了视为任务没有正确执行。默认执行超时时间为1分钟。
+                if (Objects.isNull(timeoutOrder)) {
+                    continue;
+                }
+                redisService.zadd(MagnusRedisDict.REDIS_KEY_SUSPENDED_ORDER_IN_EXECUTION, timeoutOrder, Instant.now().plusSeconds(60).toEpochMilli());
+                if (log.isDebugEnabled()) {
+                    log.debug("timeout order {} scanned", timeoutOrder);
+                }
+                String delayedJobJson = redisService.hget(MagnusRedisDict.REDIS_KEY_DELAYED_JOB_POOL, timeoutOrder);
+                if (delayedJobJson == null) {
+                    // 这里是空的？
+                    Order order = orderService.selectOrderById(Long.parseLong(timeoutOrder));
+                    System.out.println("----------- execution conflict order ID:  " + order.getId() + "  Status: " + order.getStatus());
+                    continue;
+                }
+                DelayedJob delayedJob = JSON.parseObject(delayedJobJson, DelayedJob.class);
+                // 修改数据库中此数据
+                Future<Boolean> submit = threadPoolExecutor.submit(() ->
+                        orderService.cancelSuspendedOrder(Long.valueOf(delayedJob.getJobId())));
+                // 成功？删除此Job
+                if (submit.get()) {
+//                    log.info("timeout order {} is deleted", timeoutOrder);
+                    redisService.hdel(MagnusRedisDict.REDIS_KEY_DELAYED_JOB_POOL, delayedJob.getJobId());
+                    redisService.zremove(MagnusRedisDict.REDIS_KEY_SUSPENDED_ORDER_IN_EXECUTION, timeoutOrder);
+                } else {
+                    // 异常重试
+                    // 判断当前是否超出重试次数 默认是5次
+                    log.info("timeout order {} faced an error", timeoutOrder);
+                    if (delayedJob.getRetry() >= 5) {
+                        redisService.hdel(MagnusRedisDict.REDIS_KEY_DELAYED_JOB_POOL, delayedJob.getJobId());
+                        // 持久化到数据库中，记录异常日志
+                    }
+                    // 没有超出重试次数，则重新放回job-pool中，并重新放到执行队列中
+                    delayedJob.setRetry(delayedJob.getRetry() + 1);
+                    redisService.hset(MagnusRedisDict.REDIS_KEY_DELAYED_JOB_POOL, timeoutOrder, JSON.toJSONString(delayedJob));
+                    redisService.rpush(MagnusRedisDict.REDIS_KEY_ORDER_TOBE_WAITING_HANDLING, timeoutOrder);
+                }
+            } catch (Exception e) {
+                log.info(e.getMessage());
             }
         }
     }
@@ -94,5 +127,12 @@ public class OrderSuspendedCleanExecutor implements InitializingBean {
 
     public void setKeepAliveTime(Long keepAliveTime) {
         this.keepAliveTime = keepAliveTime;
+    }
+
+    @Override
+    public void destroy() {
+        this.destroyed = true;
+        threadPoolExecutor.shutdown();
+        handleJobExecutor.shutdown();
     }
 }

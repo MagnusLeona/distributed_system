@@ -1,7 +1,6 @@
 package com.example.demo.magnus.controller;
 
-import com.example.demo.config.redis.MagnusRedisLock;
-import com.example.demo.config.redis.MagnusRedisService;
+import com.example.demo.config.common.service.RedisService;
 import com.example.demo.magnus.feign.service.PaymentFeignService;
 import com.example.demo.magnus.service.OrderService;
 import lombok.extern.slf4j.Slf4j;
@@ -16,6 +15,7 @@ import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
@@ -30,9 +30,7 @@ public class OrderController {
     @Autowired
     PaymentFeignService paymentFeignService;
     @Autowired
-    MagnusRedisLock redisLock;
-    @Autowired
-    MagnusRedisService magnusRedisService;
+    RedisService redisService;
     @Autowired
     KafkaTemplate<String, String> kafkaTemplate;
 
@@ -53,19 +51,18 @@ public class OrderController {
     }
 
     @GetMapping("order/cache/{id}")
-    public MagnusResponse cacheOrder(@PathVariable Long id) throws InterruptedException {
-        if (magnusRedisService.exist(String.valueOf(id))) {
+    public MagnusResponse<Object> cacheOrder(@PathVariable Long id) throws InterruptedException {
+        if (redisService.exist(String.valueOf(id))) {
             // 存在这个key，则直接返回
-            Object o = magnusRedisService.get(String.valueOf(id));
-            log.info("cache hit", o);
-            return new MagnusResponse(200, "success", o);
+            Optional<String> str = redisService.get(String.valueOf(id));
+            return str.map(s -> new MagnusResponse<Object>(200, "success", s)).orElseGet(() -> new MagnusResponse<Object>(400, "error", null));
         } else {
             // 没有值
-            boolean b = redisLock.tryLock("cacheKey" + id);
+            boolean b = redisService.tryLock("cacheKey" + id);
             if (b) {
                 Order order = orderService.selectOrderById(id);
-                magnusRedisService.set(String.valueOf(id), order, 10000);
-                return new MagnusResponse(200, "success", order);
+                redisService.set(String.valueOf(id), String.valueOf(order.getId()), 10000L);
+                return new MagnusResponse<Object>(200, "success", order);
             } else {
                 Thread.sleep(100);
                 cacheOrder(id);

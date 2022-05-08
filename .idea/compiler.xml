@@ -9,6 +9,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="socket_client" />
         <module name="service_order" />
+        <module name="service_executor" />
         <module name="socket_server" />
         <module name="service_payment" />
         <module name="zookeeper_client" />
@@ -38,6 +39,7 @@
       <module name="kafka_consumer" options="-parameters" />
       <module name="kafka_producer" options="-parameters" />
       <module name="service_base" options="-parameters" />
+      <module name="service_executor" options="-parameters" />
       <module name="service_order" options="-parameters" />
       <module name="service_payment" options="-parameters" />
       <module name="socket_client" options="-parameters" />

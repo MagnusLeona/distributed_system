@@ -1,5 +1,6 @@
 package com.example.demo.magnus.service.impl;
 
+import com.alibaba.fastjson.JSON;
 import com.example.demo.config.common.service.RedisService;
 import com.example.demo.magnus.mapper.OrderMapper;
 import com.example.demo.magnus.service.OrderService;
@@ -8,11 +9,15 @@ import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 import com.netflix.hystrix.contrib.javanica.conf.HystrixPropertiesManager;
 import com.netflix.hystrix.strategy.properties.HystrixPropertiesStrategy;
+import lombok.extern.slf4j.Slf4j;
 import magnus.distributed.dict.MagnusRedisDict;
+import magnus.distributed.domain.delay.queue.DelayedJob;
 import magnus.distributed.entity.Order;
 import magnus.distributed.enums.OrderStatusEnum;
 import magnus.distributed.exceptions.RedisOpsException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.support.TransactionTemplate;
@@ -22,9 +27,11 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.Future;
 
 @Service
+@Slf4j
 public class OrderServiceImpl implements OrderService {
 
     @Resource
@@ -33,10 +40,8 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     RedisService redisService;
 
-    @Autowired
-    TransactionTemplate transactionTemplate;
-
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public int insertOrder(Order order) {
         return orderMapper.insertOrder(order);
     }
@@ -117,44 +122,100 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    @Transactional
     public void orderSuspend(Long id) {
         // 先修改数据库
         orderMapper.updateOrderStatus(id, OrderStatusEnum.CREATED.get(), OrderStatusEnum.HANGED.get());
         // 然后放到redis任务队列中
-        redisService.zadd(MagnusRedisDict.REDIS_KEY_ORDER_TOBE_WAITING, id, (double) Instant.now().toEpochMilli());
-        // todo: 使用的是系统时间戳，那么就和当前服务器的时间绑定了，那么分布式架构层面上就一定会出现时钟不同步的问题。
-        // fixme: 怎么解决？
+        DelayedJob delayedJob = new DelayedJob();
+        delayedJob.setJobId(String.valueOf(id));
+        delayedJob.setDelayTime(3000L);
+        delayedJob.setRetry(0);
+        // 存放任务索引id和任务的失效时间（不同的任务可能有不同的失效时间）
+        try {
+            while (true) {
+                if (!redisService.tryLock(MagnusRedisDict.REDIS_KEY_SUSPENDED_ORDER_LOCK)) {
+                    continue;
+                }
+                redisService.zadd(MagnusRedisDict.REDIS_KEY_ORDER_TOBE_WAITING, String.valueOf(id), (double) Instant.now().plusSeconds(60).toEpochMilli());
+                // 存放任务的具体信息（这里其实可以简化，因为我这个业务场景并不复杂）
+                redisService.hset(MagnusRedisDict.REDIS_KEY_DELAYED_JOB_POOL, delayedJob.getJobId(), JSON.toJSONString(delayedJob));
+                break;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            redisService.unLock(MagnusRedisDict.REDIS_KEY_SUSPENDED_ORDER_LOCK);
+        }
     }
 
     @Override
-    @Transactional
-    public void cancelSuspendedOrder(Long id) {
+    @Transactional(rollbackFor = Exception.class)
+    public boolean cancelSuspendedOrder(Long id) {
         // 先锁行数据
         Order order = orderMapper.selectOrderByIdForUpdate(id);
-        if (order.getStatus().compareTo(OrderStatusEnum.HANGED.get()) == 0) {
+        if (order == null || order.getStatus().compareTo(OrderStatusEnum.HANGED.get()) == 0) {
             // 如果相等
             orderMapper.updateOrderStatus(id, OrderStatusEnum.HANGED.get(), OrderStatusEnum.CANCELED.get());
         }
-        // 如果以上步骤均无问题，则从挂起的订单列表删除此订单
-        redisService.zremove(MagnusRedisDict.REDIS_KEY_ORDER_TOBE_WAITING, String.valueOf(id));
+        return true;
     }
 
     @Override
-    @Transactional
-    public boolean payForSuspendedOrder(Long id) {
-        // 支付挂起的订单
-        // 需要放到事务中去执行
+    @Transactional(rollbackFor = Exception.class)
+    public boolean cancelSuspendedOrderByHand(Long id) throws Exception {
+        // 手动删除挂起的订单，需要检测是否在zset中，如果在，则删除，如果不在，则不能删除。
+        boolean result = false;
         Order order = orderMapper.selectOrderByIdForUpdate(id);
-        // select for update将会锁行数据
-        // todo: 是否可以考虑只返回status
-        if (order.getStatus().equals(OrderStatusEnum.HANGED.get())) {
-            // 如果当前是挂起的状态，则继续执行操作
-            orderMapper.updateOrderStatus(id, OrderStatusEnum.HANGED.get(), OrderStatusEnum.PAID.get());
-            return true;
+        if (!Objects.isNull(order) && order.getStatus().equals(OrderStatusEnum.HANGED.get())) {
+            // 如果当前订单处于挂起状态，则做相应的处理。
+            orderMapper.updateOrderStatus(id, OrderStatusEnum.HANGED.get(), OrderStatusEnum.CANCELED.get());
+            // 从zset中删除此订单
+            for (; ; ) {
+                Boolean locked = redisService.tryLock(MagnusRedisDict.REDIS_KEY_SUSPENDED_ORDER_LOCK);
+                if (!locked) {
+                    continue;
+                }
+                result = redisService.zremove(MagnusRedisDict.REDIS_KEY_ORDER_TOBE_WAITING, String.valueOf(id));
+                redisService.unLock(MagnusRedisDict.REDIS_KEY_SUSPENDED_ORDER_LOCK);
+                if (!result) {
+                    // 如果删除失败了，说明zset中这笔订单已经失效了，需要进行回滚操作。
+                    throw new Exception("order is already canceled");
+                }
+                break;
+            }
         }
-        // 否则呢？
-        return false;
+
+        return true;
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public boolean payForSuspendedOrder(Long id) throws Exception {
+        // 如果当前是挂起的状态，则继续执行操作
+        // 需要检测zrem是否是成功操作，如果这个时候数据被转移到list中了，则这一步操作会失败，默认已经失效。
+        // 加锁去修改这个值
+        boolean result;
+        Order order = orderMapper.selectOrderByIdForUpdate(id);
+        if (!Objects.isNull(order) && order.getStatus().equals(OrderStatusEnum.HANGED.get())) {
+            orderMapper.updateOrderStatus(id, OrderStatusEnum.HANGED.get(), OrderStatusEnum.PAID.get());
+        }
+        for (; ; ) {
+            Boolean locked = redisService.tryLockWithName(MagnusRedisDict.REDIS_KEY_SUSPENDED_ORDER_LOCK, "PayForTheOrders" + id);
+            if (!locked) {
+                continue;
+            }
+            result = redisService.zremove(MagnusRedisDict.REDIS_KEY_ORDER_TOBE_WAITING, String.valueOf(id));
+            if (result) {
+                redisService.hdel(MagnusRedisDict.REDIS_KEY_DELAYED_JOB_POOL, String.valueOf(id));
+            }
+            redisService.unLock(MagnusRedisDict.REDIS_KEY_SUSPENDED_ORDER_LOCK);
+            if (!result) {
+                log.debug("order is already canceled : " + id);
+                throw new Exception("order is already canceled");
+            }
+            break;
+        }
+        return true;
     }
 }
 

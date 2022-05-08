@@ -18,7 +18,7 @@ class OrderHangedCleanExecutorTest {
     @Test
     public void shouldExecuteJobsInternally() throws Exception {
         // 开启定时任务
-        orderHangedCleanExecutor.afterPropertiesSet();
+//        orderHangedCleanExecutor.afterPropertiesSet();
     }
 
 }
