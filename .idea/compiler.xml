@@ -7,6 +7,7 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="spring_source" />
         <module name="socket_client" />
         <module name="service_order" />
         <module name="service_executor" />
@@ -44,6 +45,7 @@
       <module name="service_payment" options="-parameters" />
       <module name="socket_client" options="-parameters" />
       <module name="socket_server" options="-parameters" />
+      <module name="spring_source" options="-parameters" />
       <module name="zookeeper_client" options="-parameters" />
     </option>
   </component>

@@ -30,6 +30,7 @@
         <module>socket_server</module>
         <module>socket_client</module>
         <module>service_executor</module>
+        <module>spring_source</module>
     </modules>
 
     <properties>
