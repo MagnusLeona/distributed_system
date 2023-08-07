@@ -2,7 +2,6 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <annotationProcessing>
-      <profile default="true" name="Default" enabled="true" />
       <profile name="Maven default annotation processors profile" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
@@ -15,25 +14,21 @@
         <module name="service_payment" />
         <module name="zookeeper_client" />
         <module name="basic_reactive" />
-        <module name="service_base" />
+        <module name="service_security" />
         <module name="config_server" />
-        <module name="kafka_producer" />
+        <module name="service_base" />
         <module name="kafka_consumer" />
-        <module name="gateway" />
+        <module name="kafka_producer" />
         <module name="eureka_server_cluster_member_01" />
+        <module name="gateway" />
         <module name="eureka_server_cluster_member_00" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="eureka_server" target="16" />
-      <module name="service_gateway" target="16" />
-    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="basic_reactive" options="-parameters" />
       <module name="config_server" options="-parameters" />
-      <module name="eureka_server" options="-parameters" />
       <module name="eureka_server_cluster_member_00" options="-parameters" />
       <module name="eureka_server_cluster_member_01" options="-parameters" />
       <module name="gateway" options="-parameters" />
@@ -43,6 +38,7 @@
       <module name="service_executor" options="-parameters" />
       <module name="service_order" options="-parameters" />
       <module name="service_payment" options="-parameters" />
+      <module name="service_security" options="-parameters" />
       <module name="socket_client" options="-parameters" />
       <module name="socket_server" options="-parameters" />
       <module name="spring_source" options="-parameters" />

@@ -11,6 +11,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
@@ -24,6 +25,7 @@ public class KafkaConsumerMain {
         ClassLoader classLoader = this.getClass().getClassLoader();
         URL resource = classLoader.getResource("properties/kafka.properties");
         Properties properties = new Properties();
+        assert resource != null;
         properties.load(resource.openStream());
         return properties;
     }
@@ -38,8 +40,10 @@ public class KafkaConsumerMain {
         properties.put("auto.commit.interval.ms", "1000");
         properties.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
         properties.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
-        KafkaConsumer<String, String> kafkaConsumer = new KafkaConsumer<>(properties);
-        kafkaConsumer.subscribe(List.of(topicname));
+        KafkaConsumer<String, String> kafkaConsumer = new KafkaConsumer(properties);
+        List<String> list = new ArrayList<>();
+        list.add(topicname);
+        kafkaConsumer.subscribe(list);
 
         System.out.println("begin~");
 
