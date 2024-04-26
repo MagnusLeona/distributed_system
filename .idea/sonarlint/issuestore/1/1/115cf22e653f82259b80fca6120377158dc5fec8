@@ -1,0 +1,11 @@
+
+g	java:S1121"FDefine and throw a dedicated exception instead of using a generic one.(†Êë¹þÿÿÿÿ8Íæš•ž1
+l
+java:S1128
+"ORemove this unused import 'org.springframework.beans.factory.InitializingBean'.(åÑ¦œ8ìæš•ž1
+s
+java:S1128"QRemove this unused import 'org.springframework.context.annotation.Configuration'.(¬²Úäþÿÿÿÿ8ìæš•ž1
+Ž
+java:S1128"lRemove this unused import 'org.springframework.security.oauth2.server.resource.InvalidBearerTokenException'.(§‰ˆÌÿÿÿÿÿ8ìæš•ž1
+R
+java:S1128"5Remove this unused import 'java.text.ParseException'.(ñ®ï•8ìæš•ž1

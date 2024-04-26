@@ -1,0 +1,27 @@
+
+a	java:S112ª"FDefine and throw a dedicated exception instead of using a generic one.(ÆÆáøüÿÿÿÿ
+a	java:S112Ë"FDefine and throw a dedicated exception instead of using a generic one.(ÆÆáøüÿÿÿÿ
+E
+java:S3740M"/Provide the parametrized type for this generic.(† òİ
+E
+java:S3740M"/Provide the parametrized type for this generic.(† òİ
+s	java:S135x"YReduce the total number of break and continue statements in this loop to use at most one.(˜ïˆÿÿÿÿÿ
+o	java:S135¡"YReduce the total number of break and continue statements in this loop to use at most one.(´ÿÕ™
+o	java:S135¾"YReduce the total number of break and continue statements in this loop to use at most one.(´ÿÕ™
+D
+java:S5411£"(Use a primitive boolean expression here.(ïëÄÖûÿÿÿÿ
+D
+java:S5411Á"(Use a primitive boolean expression here.(ïëÄÖûÿÿÿÿ
+X
+java:S3518d"CMake sure this expression can't be zero before doing this division.(›º<
+S	java:S106A"9Replace this use of System.out or System.err by a logger.(ã²‰òÿÿÿÿÿ
+N	java:S106G"9Replace this use of System.out or System.err by a logger.(÷ƒ„¸
+N	java:S106L"9Replace this use of System.out or System.err by a logger.(àÈ•
+M	java:S106R"9Replace this use of System.out or System.err by a logger.(ì‹²t
+N	java:S106Y"9Replace this use of System.out or System.err by a logger.(–Öºç
+S	java:S106^"9Replace this use of System.out or System.err by a logger.(ÇÔ•íûÿÿÿÿ
+J
+java:S1854d"5Remove this useless assignment to local variable "i".(›º<
+;
+java:S1481d"&Remove this unused "i" local variable.(›º<
+N	java:S106i"9Replace this use of System.out or System.err by a logger.(ê±é‹

@@ -1,0 +1,32 @@
+seata:
+  enabled: true
+  registry:
+    type: file
+  config:
+    type: file
+  service:
+    vgroup-mapping:
+      default_tx_group: default
+    grouplist:
+      default: 192.168.57.100:8091
+  tx-service-group: default_tx_group
+  enable-auto-data-source-proxy: false
+#  data-source-proxy-mode: XA
+
+server:
+  port: 8000
+
+spring:
+  application:
+    name: seata-application-aaa
+  hikari:
+    aaa:
+      driverClassName: com.mysql.cj.jdbc.Driver
+      username: root
+      password: magnus
+      jdbcUrl: jdbc:mysql://192.168.57.100:3306/aaa?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC
+    bbb:
+      driverClassName: com.mysql.cj.jdbc.Driver
+      username: root
+      password: magnus
+      jdbcUrl: jdbc:mysql://192.168.57.100:3306/bbb?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC

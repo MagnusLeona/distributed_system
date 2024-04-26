@@ -2,6 +2,7 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
       <profile name="Maven default annotation processors profile" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
@@ -9,6 +10,7 @@
         <module name="spring_source" />
         <module name="socket_client" />
         <module name="service_order" />
+        <module name="seata_xa_local_transaction" />
         <module name="service_executor" />
         <module name="socket_server" />
         <module name="service_payment" />
@@ -21,9 +23,11 @@
         <module name="kafka_producer" />
         <module name="eureka_server_cluster_member_01" />
         <module name="gateway" />
+        <module name="seata_distributed_transaction" />
         <module name="eureka_server_cluster_member_00" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel target="8" />
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
@@ -34,6 +38,8 @@
       <module name="gateway" options="-parameters" />
       <module name="kafka_consumer" options="-parameters" />
       <module name="kafka_producer" options="-parameters" />
+      <module name="seata_distributed_transaction" options="-parameters" />
+      <module name="seata_xa_local_transaction" options="-parameters" />
       <module name="service_base" options="-parameters" />
       <module name="service_executor" options="-parameters" />
       <module name="service_order" options="-parameters" />

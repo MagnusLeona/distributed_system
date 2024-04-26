@@ -1,0 +1,11 @@
+
+n
+java:S1602
+"SRemove useless curly braces around statement and then remove useless return keyword(½øÆÔûÿÿÿÿ
+—
+java:S1186"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(úÑ¯¤
+œ
+java:S1186"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(¸ÜÒÄøÿÿÿÿ
+—
+java:S1186"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(×ÝŠÎ
+S	java:S106"9Replace this use of System.out or System.err by a logger.(«Ø·ÿùÿÿÿÿ

@@ -1,6 +1,7 @@
 package com.example.demo;
 
-import com.alibaba.fastjson.JSON;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,7 +43,8 @@ class DemoApplicationTests {
             final int t = i * 100;
             new Thread(() -> {
                 for (int i1 = 1; i1 <= 100; i1++) {
-                    testRestTemplate.getForEntity("http://localhost:9000/order/suspend/" + (t + i1) + "/pay", String.class);
+                    testRestTemplate.getForEntity("http://localhost:9000/order/suspend/" + (t + i1) + "/pay",
+                                                  String.class);
                 }
             }).start();
         }
@@ -50,9 +52,10 @@ class DemoApplicationTests {
         Thread.sleep(5000);
     }
 
-    public HttpEntity getHttpEntity(Object o) {
+    public HttpEntity getHttpEntity(Object o) throws JsonProcessingException {
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.setContentType(MediaType.APPLICATION_JSON);
-        return new HttpEntity(JSON.toJSONString(o), httpHeaders);
+        ObjectMapper objectMapper = new ObjectMapper();
+        return new HttpEntity(objectMapper.writeValueAsString(o), httpHeaders);
     }
 }

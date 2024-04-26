@@ -6,7 +6,6 @@ import org.apache.ibatis.mapping.Environment;
 import org.apache.ibatis.session.ExecutorType;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
-import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.mybatis.spring.annotation.MapperScan;
@@ -23,7 +22,6 @@ import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionManager;
 import org.springframework.transaction.support.TransactionTemplate;
-import org.springframework.web.servlet.view.tiles3.SpringLocaleResolver;
 
 import javax.sql.DataSource;
 import java.io.IOException;
@@ -66,14 +64,16 @@ public class DataSourceConfiguration {
     public SqlSessionFactory sqlSessionFactory() throws Exception {
         org.apache.ibatis.session.Configuration configuration = new org.apache.ibatis.session.Configuration();
         Environment.Builder builder = new Environment.Builder("1");
-        Environment build = builder.dataSource(dataSource()).transactionFactory(new SpringManagedTransactionFactory()).build();
+        Environment build = builder.dataSource(dataSource()).transactionFactory(new SpringManagedTransactionFactory())
+                                   .build();
         configuration.setEnvironment(build);
         configuration.setCacheEnabled(true);
         configuration.setLogImpl(Log4j2Impl.class);
         SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
         sqlSessionFactoryBean.setConfiguration(configuration);
         PathMatchingResourcePatternResolver pathMatchingResourcePatternResolver = new PathMatchingResourcePatternResolver();
-        sqlSessionFactoryBean.setMapperLocations(pathMatchingResourcePatternResolver.getResources("classpath:/mapper/*"));
+        sqlSessionFactoryBean.setMapperLocations(
+                pathMatchingResourcePatternResolver.getResources("classpath:/mapper/*"));
         sqlSessionFactoryBean.setDataSource(dataSource());
         return sqlSessionFactoryBean.getObject();
     }

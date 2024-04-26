@@ -1,0 +1,522 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="7a364ea3-eb38-41fa-88bf-9b5d44fba694" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/0/b/0b91217a94bceb53672a8cb230b79ce5a1690707" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/0/b/0bf73cf07d85d496937aa1afcee0aa9a57aad75c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/0/c/0cbcd152ad90d59307923de4fccf0b24e46c98eb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/0/f/0f1ce4c21dc0d8899ad9280d7e4fc0f1bb94c9d0" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/0/f/0f4bd0d2e75c6f9844c8c089fd1da559e3fd4b1a" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/1/1/115cf22e653f82259b80fca6120377158dc5fec8" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/1/2/12d71bf1d31d4f6a8cf0ebba29b77651d50f4ec0" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/1/4/1460cc091bf201a5b0a6e77b54b7df83065a8a12" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/1/5/15a62aaa7913e28f0d2a457193fa95993065cc1c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/1/b/1b4815e7cfb9d927b142dfbcaa45200d3ba728b4" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/1/b/1b5ae454908740f533c18f5d5f041091171cae46" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/1/b/1baa7ca7f15b9e1732620e80efd6e60f19a25c9a" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/1/c/1c766ae985ea0852d389d50f80925ad757a56bff" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/1/e/1ecbea13edf1a631c622215918b6f30834e2afc2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/4/0/409e0e302c68979ae7cc359349b74f6cbbd1729d" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/4/3/4302066928e99ac6809ba92f397571de23cb67c2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/4/4/442292b8a7efeabbe4cc176709b833b1792140ec" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/4/8/485f9fe149c1d5785f33c5be20b5bd390acaec78" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/5/0/50dd0389da156debfca136dd6328e7c0586bb083" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/5/8/58b11adbb213886c558a42f185762ea2c786ed67" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/6/2/62b0b60c4cab713ceaf6132e91f4cd4a27909bac" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/6/5/6502ca8e60dff77b4e128f8846988807ce8b2d3b" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/6/5/65fd8a3e8e0ceb9ca030de9e5c90d7e534d62a94" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/6/b/6b4267a9bd1f51de43aa602863d65e6fcb8d1124" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/7/0/70deaff50a1a95975d59b5477c335516b85a092d" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/7/c/7cb5469f73b7190fad9d4f449cbbc5deb3eb188a" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/8/3/8398a2e6888c2680ad3e356fee6420d136073db8" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/9/1/91374186a7ee4c5f5057c94ef1fc0944b470d838" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/a/8/a815eb1f37b47f4bbe7d8bff8d9494a5090d7877" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/b/9/b97fbfcfba53997e70479b0029a26b1e72d65b93" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/c/6/c6f0ab386452775e90e597a71453b8cd8f3afdf9" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/c/e/ce05ddc90fb5464d2d0373e31faf12d20b8729ac" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/d/3/d347a77803bd83435f635d0875a0739229261753" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/d/a/da9f7422ac390b64de27d77cc7e77774a09e2341" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/d/c/dca6a2389b7cb4194c79ba22afc283fd5c597792" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/d/e/def166b2f12c1b9c3a65fac5eff7532b42eb5eb1" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/e/0/e0644b3f3ccd2bc0e7160a2a22986499619f8ab8" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/f/9/f9cb377e39dec636aef083fd71cb4d06468a1d4b" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/index.pb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/securityhotspotstore/0/b/0b91217a94bceb53672a8cb230b79ce5a1690707" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/securityhotspotstore/0/b/0bf73cf07d85d496937aa1afcee0aa9a57aad75c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/securityhotspotstore/0/c/0cbcd152ad90d59307923de4fccf0b24e46c98eb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/securityhotspotstore/0/f/0f1ce4c21dc0d8899ad9280d7e4fc0f1bb94c9d0" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/securityhotspotstore/0/f/0f4bd0d2e75c6f9844c8c089fd1da559e3fd4b1a" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/securityhotspotstore/1/1/115cf22e653f82259b80fca6120377158dc5fec8" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/securityhotspotstore/1/2/12d71bf1d31d4f6a8cf0ebba29b77651d50f4ec0" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/securityhotspotstore/1/4/1460cc091bf201a5b0a6e77b54b7df83065a8a12" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/securityhotspotstore/1/5/15a62aaa7913e28f0d2a457193fa95993065cc1c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/securityhotspotstore/1/b/1b4815e7cfb9d927b142dfbcaa45200d3ba728b4" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/securityhotspotstore/1/b/1b5ae454908740f533c18f5d5f041091171cae46" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/securityhotspotstore/1/b/1baa7ca7f15b9e1732620e80efd6e60f19a25c9a" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/securityhotspotstore/1/c/1c766ae985ea0852d389d50f80925ad757a56bff" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/securityhotspotstore/1/e/1ecbea13edf1a631c622215918b6f30834e2afc2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/securityhotspotstore/4/0/409e0e302c68979ae7cc359349b74f6cbbd1729d" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/securityhotspotstore/4/3/4302066928e99ac6809ba92f397571de23cb67c2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/securityhotspotstore/4/4/442292b8a7efeabbe4cc176709b833b1792140ec" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/securityhotspotstore/4/8/485f9fe149c1d5785f33c5be20b5bd390acaec78" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/securityhotspotstore/5/0/50dd0389da156debfca136dd6328e7c0586bb083" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/securityhotspotstore/5/8/58b11adbb213886c558a42f185762ea2c786ed67" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/securityhotspotstore/6/2/62b0b60c4cab713ceaf6132e91f4cd4a27909bac" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/securityhotspotstore/6/5/6502ca8e60dff77b4e128f8846988807ce8b2d3b" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/securityhotspotstore/6/5/65fd8a3e8e0ceb9ca030de9e5c90d7e534d62a94" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/securityhotspotstore/6/b/6b4267a9bd1f51de43aa602863d65e6fcb8d1124" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/securityhotspotstore/7/0/70deaff50a1a95975d59b5477c335516b85a092d" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/securityhotspotstore/7/c/7cb5469f73b7190fad9d4f449cbbc5deb3eb188a" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/securityhotspotstore/8/3/8398a2e6888c2680ad3e356fee6420d136073db8" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/securityhotspotstore/9/1/91374186a7ee4c5f5057c94ef1fc0944b470d838" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/securityhotspotstore/a/8/a815eb1f37b47f4bbe7d8bff8d9494a5090d7877" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/securityhotspotstore/b/9/b97fbfcfba53997e70479b0029a26b1e72d65b93" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/securityhotspotstore/c/6/c6f0ab386452775e90e597a71453b8cd8f3afdf9" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/securityhotspotstore/c/e/ce05ddc90fb5464d2d0373e31faf12d20b8729ac" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/securityhotspotstore/d/3/d347a77803bd83435f635d0875a0739229261753" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/securityhotspotstore/d/a/da9f7422ac390b64de27d77cc7e77774a09e2341" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/securityhotspotstore/d/c/dca6a2389b7cb4194c79ba22afc283fd5c597792" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/securityhotspotstore/d/e/def166b2f12c1b9c3a65fac5eff7532b42eb5eb1" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/securityhotspotstore/e/0/e0644b3f3ccd2bc0e7160a2a22986499619f8ab8" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/securityhotspotstore/f/9/f9cb377e39dec636aef083fd71cb4d06468a1d4b" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/securityhotspotstore/index.pb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/seata_distributed_transaction/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/seata_xa_local_transaction/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/seata_xa_local_transaction/src/main/java/magnus/leona/seata/AAAApplication.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/seata_xa_local_transaction/src/main/java/magnus/leona/seata/aaa/config/DatasourceConfiguration.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/seata_xa_local_transaction/src/main/java/magnus/leona/seata/aaa/mapper/aaa/AAAMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/seata_xa_local_transaction/src/main/java/magnus/leona/seata/aaa/mapper/bbb/BBBMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/seata_xa_local_transaction/src/main/java/magnus/leona/seata/aaa/resource/AccountController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/seata_xa_local_transaction/src/main/java/magnus/leona/seata/aaa/service/TransferService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/seata_xa_local_transaction/src/main/resources/application.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/service_security/src/main/java/magnus/configuration/MagnusJacksonConfiguration.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/service_security/src/main/java/magnus/configuration/MagnusJwtAuthenticationFilter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/service_security/src/main/java/magnus/configuration/MagnusJwtAuthorizationFilter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/service_security/src/main/java/magnus/configuration/MagnusJwtUserInfoProvider.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/service_security/src/main/java/magnus/configuration/MagnusOAuth2Configuration.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/service_security/src/main/java/magnus/configuration/MagnusSecurityConfiguration.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/service_security/src/main/java/magnus/configuration/MagnusUsernamePasswordFilter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/service_security/src/main/java/magnus/resources/DefaultResource.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/service_security/src/main/java/magnus/resources/DemoResource.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/service_security/src/main/java/magnus/resources/NonLoginResource.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/service_security/src/main/java/magnus/resources/SecuredResource.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/service_security/src/main/java/magnus/resources/exception/AuthenticationFailedException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/service_security/src/main/java/magnus/resources/exception/InvalidTokenException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/service_security/src/main/java/magnus/resources/exception/TokenExpiredException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/service_security/src/main/java/magnus/utils/jwt/JwtAuthentication.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/service_security/src/main/java/magnus/utils/jwt/JwtPayload.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/service_security/src/main/java/magnus/utils/jwt/JwtTokenService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/service_security/src/test/java/magnus/configuration/MagnusUsernamePasswordFilterTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/service_security/src/test/java/magnus/utils/jwt/JwtTokenServiceTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/jarRepositories.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/basic_reactive/target/classes/magnus/concurrent/cyclicbarrier/CyclicBarrierDemo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/basic_reactive/target/classes/magnus/concurrent/lock/ReentrantLockDemo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/basic_reactive/target/classes/magnus/concurrent/semaphore/CompletabeFutureDemo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/basic_reactive/target/classes/magnus/concurrent/semaphore/SemaphoreDemo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/basic_reactive/target/classes/magnus/service/callback/Calculator.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/basic_reactive/target/classes/magnus/service/callback/DoCalculator.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/basic_reactive/target/classes/magnus/service/callback/MagnusCallback.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/basic_reactive/target/classes/magnus/service/callback/MainTest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/basic_reactive/target/classes/magnus/service/callback/Student.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/basic_reactive/target/classes/magnus/service/callback/UserService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/basic_reactive/target/classes/magnus/service/rxjava/RxJavaDemo$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/basic_reactive/target/classes/magnus/service/rxjava/RxJavaDemo$2.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/basic_reactive/target/classes/magnus/service/rxjava/RxJavaDemo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/basic_reactive/target/classes/magnus/service/rxjava/animal/Animal.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/basic_reactive/target/classes/magnus/service/rxjava/animal/Cat$CatFood.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/basic_reactive/target/classes/magnus/service/rxjava/animal/Cat.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/basic_reactive/target/classes/magnus/service/rxjava/animal/CatDemo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/basic_reactive/target/classes/magnus/service/rxjava/animal/Zoo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/basic_reactive/target/classes/magnus/service/rxjava/rxfunc/FilterDemo$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/basic_reactive/target/classes/magnus/service/rxjava/rxfunc/FilterDemo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/basic_reactive/target/classes/magnus/service/rxjava/rxfunc/FlatMapDemo$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/basic_reactive/target/classes/magnus/service/rxjava/rxfunc/FlatMapDemo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/basic_reactive/target/classes/magnus/service/rxjava/rxfunc/FlatMapIteratorDemo$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/basic_reactive/target/classes/magnus/service/rxjava/rxfunc/FlatMapIteratorDemo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/basic_reactive/target/classes/magnus/service/rxjava/rxfunc/GroupByDemo$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/basic_reactive/target/classes/magnus/service/rxjava/rxfunc/GroupByDemo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/basic_reactive/target/classes/magnus/service/rxjava/rxfunc/IntervalDemo$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/basic_reactive/target/classes/magnus/service/rxjava/rxfunc/IntervalDemo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/basic_reactive/target/classes/magnus/service/rxjava/rxfunc/MapDemo$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/basic_reactive/target/classes/magnus/service/rxjava/rxfunc/MapDemo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/basic_reactive/target/classes/magnus/service/rxjava/rxfunc/ObservableCreateDemo$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/basic_reactive/target/classes/magnus/service/rxjava/rxfunc/ObservableCreateDemo$2.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/basic_reactive/target/classes/magnus/service/rxjava/rxfunc/ObservableCreateDemo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/basic_reactive/target/classes/magnus/service/rxjava/rxfunc/ScanDemo$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/basic_reactive/target/classes/magnus/service/rxjava/rxfunc/ScanDemo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/basic_reactive/target/classes/magnus/service/rxjava/rxfunc/SwitchMapDemo$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/basic_reactive/target/classes/magnus/service/rxjava/rxfunc/SwitchMapDemo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/basic_reactive/target/classes/magnus/service/rxjava/rxfunc/TakeDemo$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/basic_reactive/target/classes/magnus/service/rxjava/rxfunc/TakeDemo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/config_server/target/classes/magnus/config/server/SpringCloudConfigApplication.class" beforeDir="false" afterPath="$PROJECT_DIR$/config_server/target/classes/magnus/config/server/SpringCloudConfigApplication.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/eureka_server_cluster_member_00/target/classes/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/eureka_server_cluster_member_00/target/classes/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/eureka_server_cluster_member_00/target/classes/magnus/leona/MagnusApplication.class" beforeDir="false" afterPath="$PROJECT_DIR$/eureka_server_cluster_member_00/target/classes/magnus/leona/MagnusApplication.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/eureka_server_cluster_member_00/target/test-classes/magnus/leona/MagnusApplicationTests.class" beforeDir="false" afterPath="$PROJECT_DIR$/eureka_server_cluster_member_00/target/test-classes/magnus/leona/MagnusApplicationTests.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/eureka_server_cluster_member_01/target/classes/magnus/leona/MagnusEurekaApplication.class" beforeDir="false" afterPath="$PROJECT_DIR$/eureka_server_cluster_member_01/target/classes/magnus/leona/MagnusEurekaApplication.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka_consumer/target/classes/magnus/leona/KafkaConsumerMain.class" beforeDir="false" afterPath="$PROJECT_DIR$/kafka_consumer/target/classes/magnus/leona/KafkaConsumerMain.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka_consumer/target/test-classes/magnus/leona/KafkaConsumerMainTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/kafka_consumer/target/test-classes/magnus/leona/KafkaConsumerMainTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka_producer/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/kafka_producer/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka_producer/src/main/java/magnus/leona/spring/kafka/config/KafkaConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/kafka_producer/src/main/java/magnus/leona/spring/kafka/config/KafkaConfiguration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka_producer/target/classes/magnus/leona/MagnusKafkaProducer.class" beforeDir="false" afterPath="$PROJECT_DIR$/kafka_producer/target/classes/magnus/leona/MagnusKafkaProducer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka_producer/target/classes/magnus/leona/kafka/producer/MagnusKafkaProducer$innerProducer.class" beforeDir="false" afterPath="$PROJECT_DIR$/kafka_producer/target/classes/magnus/leona/kafka/producer/MagnusKafkaProducer$innerProducer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka_producer/target/classes/magnus/leona/kafka/producer/MagnusKafkaProducer.class" beforeDir="false" afterPath="$PROJECT_DIR$/kafka_producer/target/classes/magnus/leona/kafka/producer/MagnusKafkaProducer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka_producer/target/classes/magnus/leona/spring/kafka/config/KafkaConfiguration.class" beforeDir="false" afterPath="$PROJECT_DIR$/kafka_producer/target/classes/magnus/leona/spring/kafka/config/KafkaConfiguration.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka_producer/target/classes/magnus/leona/spring/kafka/controller/Demo.class" beforeDir="false" afterPath="$PROJECT_DIR$/kafka_producer/target/classes/magnus/leona/spring/kafka/controller/Demo.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka_producer/target/classes/magnus/leona/spring/kafka/controller/KafkaController.class" beforeDir="false" afterPath="$PROJECT_DIR$/kafka_producer/target/classes/magnus/leona/spring/kafka/controller/KafkaController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka_producer/target/test-classes/magnus/leona/kafka/producer/MagnusKafkaProducer.class" beforeDir="false" afterPath="$PROJECT_DIR$/kafka_producer/target/test-classes/magnus/leona/kafka/producer/MagnusKafkaProducer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service_base/target/classes/magnus/distributed/constants/MagnusConstants.class" beforeDir="false" afterPath="$PROJECT_DIR$/service_base/target/classes/magnus/distributed/constants/MagnusConstants.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service_base/target/classes/magnus/distributed/dict/MagnusDict.class" beforeDir="false" afterPath="$PROJECT_DIR$/service_base/target/classes/magnus/distributed/dict/MagnusDict.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service_base/target/classes/magnus/distributed/dict/MagnusDictEnum.class" beforeDir="false" afterPath="$PROJECT_DIR$/service_base/target/classes/magnus/distributed/dict/MagnusDictEnum.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service_base/target/classes/magnus/distributed/dict/MagnusKafkaDict.class" beforeDir="false" afterPath="$PROJECT_DIR$/service_base/target/classes/magnus/distributed/dict/MagnusKafkaDict.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service_base/target/classes/magnus/distributed/dict/MagnusRedisDict.class" beforeDir="false" afterPath="$PROJECT_DIR$/service_base/target/classes/magnus/distributed/dict/MagnusRedisDict.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service_base/target/classes/magnus/distributed/dict/MagnusZookeeperDict.class" beforeDir="false" afterPath="$PROJECT_DIR$/service_base/target/classes/magnus/distributed/dict/MagnusZookeeperDict.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service_base/target/classes/magnus/distributed/domain/delay/queue/DelayedJob.class" beforeDir="false" afterPath="$PROJECT_DIR$/service_base/target/classes/magnus/distributed/domain/delay/queue/DelayedJob.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service_base/target/classes/magnus/distributed/entity/Order.class" beforeDir="false" afterPath="$PROJECT_DIR$/service_base/target/classes/magnus/distributed/entity/Order.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service_base/target/classes/magnus/distributed/entity/Payment.class" beforeDir="false" afterPath="$PROJECT_DIR$/service_base/target/classes/magnus/distributed/entity/Payment.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service_base/target/classes/magnus/distributed/enums/OrderStatusEnum.class" beforeDir="false" afterPath="$PROJECT_DIR$/service_base/target/classes/magnus/distributed/enums/OrderStatusEnum.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service_base/target/classes/magnus/distributed/exceptions/RedisOpsException.class" beforeDir="false" afterPath="$PROJECT_DIR$/service_base/target/classes/magnus/distributed/exceptions/RedisOpsException.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service_base/target/classes/magnus/distributed/executor/DelayJobHandlerExecutor.class" beforeDir="false" afterPath="$PROJECT_DIR$/service_base/target/classes/magnus/distributed/executor/DelayJobHandlerExecutor.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service_base/target/classes/magnus/distributed/response/MagnusResponse.class" beforeDir="false" afterPath="$PROJECT_DIR$/service_base/target/classes/magnus/distributed/response/MagnusResponse.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service_executor/target/classes/magnus/leona/App.class" beforeDir="false" afterPath="$PROJECT_DIR$/service_executor/target/classes/magnus/leona/App.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service_executor/target/classes/magnus/leona/config/redis/MagnusRedisConfiguration.class" beforeDir="false" afterPath="$PROJECT_DIR$/service_executor/target/classes/magnus/leona/config/redis/MagnusRedisConfiguration.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service_order/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/service_order/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service_order/src/main/java/com/example/demo/config/datasource/DataSourceConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/service_order/src/main/java/com/example/demo/config/datasource/DataSourceConfiguration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service_order/src/main/java/com/example/demo/magnus/executor/OrderSuspendedCleanExecutor.java" beforeDir="false" afterPath="$PROJECT_DIR$/service_order/src/main/java/com/example/demo/magnus/executor/OrderSuspendedCleanExecutor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service_order/src/main/java/com/example/demo/magnus/service/impl/OrderServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/service_order/src/main/java/com/example/demo/magnus/service/impl/OrderServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service_order/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/service_order/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service_order/src/main/resources/properties/datasource.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/service_payment/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/service_payment/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service_payment/src/test/java/com/example/demo/DemoApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/service_payment/src/test/java/com/example/demo/DemoApplicationTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service_security/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/service_security/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service_security/src/main/java/magnus/MagnusApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/service_security/src/main/java/magnus/MagnusApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service_security/src/main/java/magnus/configuration/MagnusJerseyConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/service_security/src/main/java/magnus/configuration/MagnusJerseyConfiguration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service_security/src/main/resources/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/service_security/src/main/resources/application.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/socket_client/target/classes/MagnusSocketClient.class" beforeDir="false" afterPath="$PROJECT_DIR$/socket_client/target/classes/MagnusSocketClient.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/socket_server/target/classes/MagnusSocketServer.class" beforeDir="false" afterPath="$PROJECT_DIR$/socket_server/target/classes/MagnusSocketServer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spring_source/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/spring_source/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spring_source/target/classes/magnus/leona/spring/ContainerTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/spring_source/target/classes/magnus/leona/spring/ContainerTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spring_source/target/classes/magnus/leona/spring/ContainerTestTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/spring_source/target/classes/magnus/leona/spring/ContainerTestTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spring_source/target/classes/magnus/leona/spring/bean/Animal.class" beforeDir="false" afterPath="$PROJECT_DIR$/spring_source/target/classes/magnus/leona/spring/bean/Animal.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spring_source/target/classes/magnus/leona/spring/bean/Cat.class" beforeDir="false" afterPath="$PROJECT_DIR$/spring_source/target/classes/magnus/leona/spring/bean/Cat.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spring_source/target/classes/magnus/leona/spring/bean/Dog.class" beforeDir="false" afterPath="$PROJECT_DIR$/spring_source/target/classes/magnus/leona/spring/bean/Dog.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spring_source/target/classes/magnus/leona/spring/bean/Pig.class" beforeDir="false" afterPath="$PROJECT_DIR$/spring_source/target/classes/magnus/leona/spring/bean/Pig.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spring_source/target/classes/magnus/leona/spring/configuration/AnimalFactory.class" beforeDir="false" afterPath="$PROJECT_DIR$/spring_source/target/classes/magnus/leona/spring/configuration/AnimalFactory.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spring_source/target/classes/magnus/leona/spring/processor/AnimalInstantiationBeanPostProcessor.class" beforeDir="false" afterPath="$PROJECT_DIR$/spring_source/target/classes/magnus/leona/spring/processor/AnimalInstantiationBeanPostProcessor.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spring_source/target/classes/magnus/leona/spring/processor/AnimalSmartInstantiationBeanPostProcessor.class" beforeDir="false" afterPath="$PROJECT_DIR$/spring_source/target/classes/magnus/leona/spring/processor/AnimalSmartInstantiationBeanPostProcessor.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zookeeper_client/target/classes/magnus/leona/ZookeeperClientMain.class" beforeDir="false" afterPath="$PROJECT_DIR$/zookeeper_client/target/classes/magnus/leona/ZookeeperClientMain.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zookeeper_client/target/classes/magnus/leona/config/ZookeeperConfiguration.class" beforeDir="false" afterPath="$PROJECT_DIR$/zookeeper_client/target/classes/magnus/leona/config/ZookeeperConfiguration.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zookeeper_client/target/classes/magnus/leona/config/ZookeeperTemplate.class" beforeDir="false" afterPath="$PROJECT_DIR$/zookeeper_client/target/classes/magnus/leona/config/ZookeeperTemplate.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zookeeper_client/target/classes/magnus/leona/spring/kafka/business/controller/ZookeeperController.class" beforeDir="false" afterPath="$PROJECT_DIR$/zookeeper_client/target/classes/magnus/leona/spring/kafka/business/controller/ZookeeperController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zookeeper_client/target/classes/plain/ZookeeperClient.class" beforeDir="false" afterPath="$PROJECT_DIR$/zookeeper_client/target/classes/plain/ZookeeperClient.class" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JUnit5 Test Class" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="localRepository" value="C:\Users\magnu\.m2\repository" />
+        <option name="mavenHome" value="$PROJECT_DIR$/../../../../infrastructures/apache-maven-3.8.4-bin/apache-maven-3.8.4" />
+        <option name="userSettingsFile" value="C:\Users\magnu\.m2\settings.xml" />
+      </MavenGeneralSettings>
+    </option>
+    <option name="importingSettings">
+      <MavenImportingSettings>
+        <option name="workspaceImportEnabled" value="true" />
+      </MavenImportingSettings>
+    </option>
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
+  <component name="ProjectId" id="2SjlFmMT47ezO1GutgiWqjeIzzt" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit5&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5&quot;: &quot;&quot;,
+    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;19&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/workspace/projects/projects/distributed_system/seata_application_aaa/src/main/resources&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.projectsettings.compiler.javacompiler&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\workspace\projects\projects\distributed_system\seata_application_aaa\src\main\resources" />
+    </key>
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
+    </key>
+    <key name="CreateTestDialog.RecentsKey">
+      <recent name="magnus.utils.jwt" />
+      <recent name="magnus.configuration" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Application.AAAApplication">
+    <configuration name="AAAApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="magnus.leona.seata.AAAApplication" />
+      <module name="seata_xa_local_transaction" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="magnus.leona.seata.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MagnusApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="magnus.MagnusApplication" />
+      <module name="service_security" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="magnus.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="RxJavaDemo" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="magnus.service.rxjava.RxJavaDemo" />
+      <module name="basic_reactive" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="magnus.service.rxjava.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="JwtTokenServiceTest.test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="service_security" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="magnus.utils.jwt.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="magnus.utils.jwt" />
+      <option name="MAIN_CLASS_NAME" value="magnus.utils.jwt.JwtTokenServiceTest" />
+      <option name="METHOD_NAME" value="test" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MagnusUsernamePasswordFilterTest.testJacksonTransferStringToMap" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="service_security" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="magnus.configuration.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="magnus.configuration" />
+      <option name="MAIN_CLASS_NAME" value="magnus.configuration.MagnusUsernamePasswordFilterTest" />
+      <option name="METHOD_NAME" value="testJacksonTransferStringToMap" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.AAAApplication" />
+        <item itemvalue="Application.MagnusApplication" />
+        <item itemvalue="JUnit.JwtTokenServiceTest.test" />
+        <item itemvalue="JUnit.MagnusUsernamePasswordFilterTest.testJacksonTransferStringToMap" />
+        <item itemvalue="Application.RxJavaDemo" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="7a364ea3-eb38-41fa-88bf-9b5d44fba694" name="Changes" comment="" />
+      <created>1689667770198</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1689667770198</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/service_security/src/main/java/magnus/resources/DemoResource.java</url>
+          <line>12</line>
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/service_security/src/main/java/magnus/configuration/MagnusUsernamePasswordFilter.java</url>
+          <line>40</line>
+          <option name="timeStamp" value="7" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/service_security/src/main/java/magnus/configuration/MagnusUsernamePasswordFilter.java</url>
+          <line>51</line>
+          <option name="timeStamp" value="12" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>jar://$MAVEN_REPOSITORY$/org/springframework/security/spring-security-web/6.1.2/spring-security-web-6.1.2.jar!/org/springframework/security/web/FilterChainProxy.class</url>
+          <line>252</line>
+          <option name="timeStamp" value="15" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>jar://$MAVEN_REPOSITORY$/org/springframework/security/spring-security-web/6.1.2/spring-security-web-6.1.2.jar!/org/springframework/security/web/authentication/AbstractAuthenticationProcessingFilter.class</url>
+          <line>91</line>
+          <option name="timeStamp" value="19" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>jar://$MAVEN_REPOSITORY$/org/springframework/security/spring-security-web/6.1.2/spring-security-web-6.1.2.jar!/org/springframework/security/web/authentication/AbstractAuthenticationProcessingFilter.class</url>
+          <line>125</line>
+          <option name="timeStamp" value="20" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>jar://$MAVEN_REPOSITORY$/org/springframework/security/spring-security-web/6.1.2/spring-security-web-6.1.2.jar!/org/springframework/security/web/context/HttpSessionSecurityContextRepository.class</url>
+          <line>72</line>
+          <option name="timeStamp" value="22" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>mock:///HttpSessionSecurityContextRepository.java</url>
+          <line>49</line>
+          <option name="timeStamp" value="33" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/service_security/src/main/java/magnus/utils/jwt/JwtTokenService.java</url>
+          <line>52</line>
+          <option name="timeStamp" value="36" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/service_security/src/main/java/magnus/utils/jwt/JwtTokenService.java</url>
+          <line>53</line>
+          <option name="timeStamp" value="37" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>jar://$MAVEN_REPOSITORY$/org/springframework/security/spring-security-core/6.1.2/spring-security-core-6.1.2.jar!/org/springframework/security/core/context/SecurityContextHolder.class</url>
+          <line>83</line>
+          <option name="timeStamp" value="39" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/service_security/src/main/java/magnus/configuration/MagnusJwtAuthorizationFilter.java</url>
+          <line>55</line>
+          <option name="timeStamp" value="40" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/service_security/src/main/java/magnus/configuration/MagnusJwtAuthorizationFilter.java</url>
+          <line>93</line>
+          <option name="timeStamp" value="41" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/service_security/src/main/java/magnus/configuration/MagnusJwtAuthenticationFilter.java</url>
+          <line>61</line>
+          <option name="timeStamp" value="51" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>jar://$MAVEN_REPOSITORY$/org/springframework/security/spring-security-web/6.1.2/spring-security-web-6.1.2-sources.jar!/org/springframework/security/web/FilterChainProxy.java</url>
+          <line>193</line>
+          <option name="timeStamp" value="53" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/seata_xa_local_transaction/src/main/java/magnus/leona/seata/aaa/config/DatasourceConfiguration.java</url>
+          <line>56</line>
+          <option name="timeStamp" value="56" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/seata_xa_local_transaction/src/main/java/magnus/leona/seata/aaa/config/DatasourceConfiguration.java</url>
+          <line>36</line>
+          <option name="timeStamp" value="62" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/seata_xa_local_transaction/src/main/java/magnus/leona/seata/aaa/config/DatasourceConfiguration.java</url>
+          <line>41</line>
+          <option name="timeStamp" value="63" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>jar://$MAVEN_REPOSITORY$/io/seata/seata-all/1.5.2/seata-all-1.5.2.jar!/io/seata/rm/DefaultResourceManager.class</url>
+          <line>29</line>
+          <option name="timeStamp" value="64" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>jar://$MAVEN_REPOSITORY$/io/seata/seata-all/1.5.2/seata-all-1.5.2.jar!/io/seata/rm/datasource/util/JdbcUtils.class</url>
+          <line>75</line>
+          <option name="timeStamp" value="65" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>jar://$MAVEN_REPOSITORY$/io/seata/seata-all/1.5.2/seata-all-1.5.2-sources.jar!/io/seata/rm/datasource/xa/DataSourceProxyXA.java</url>
+          <line>50</line>
+          <option name="timeStamp" value="66" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>jar://$MAVEN_REPOSITORY$/io/seata/seata-all/1.5.2/seata-all-1.5.2-sources.jar!/io/seata/rm/datasource/xa/DataSourceProxyXA.java</url>
+          <line>53</line>
+          <option name="timeStamp" value="67" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>jar://$MAVEN_REPOSITORY$/io/seata/seata-all/1.5.2/seata-all-1.5.2-sources.jar!/io/seata/rm/datasource/util/JdbcUtils.java</url>
+          <line>74</line>
+          <option name="timeStamp" value="68" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>jar://$MAVEN_REPOSITORY$/io/seata/seata-all/1.5.2/seata-all-1.5.2-sources.jar!/io/seata/rm/DefaultResourceManager.java</url>
+          <line>113</line>
+          <option name="timeStamp" value="69" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+    <watches-manager>
+      <configuration name="Application">
+        <watch expression="((AuthenticatedAuthorizationManager)manager).authorizationStrategy" language="JAVA" custom="org.springframework.security.authorization.AuthenticatedAuthorizationManager" />
+        <watch expression="((RequestFacade)request).request" custom="org.apache.catalina.connector.RequestFacade" />
+        <watch expression="((java.util.ArrayList)((VirtualFilterChain)this).additionalFilters).get(9)" custom="org.springframework.security.web.FilterChainProxy.VirtualFilterChain,java.util.ArrayList" />
+      </configuration>
+    </watches-manager>
+  </component>
+</project>

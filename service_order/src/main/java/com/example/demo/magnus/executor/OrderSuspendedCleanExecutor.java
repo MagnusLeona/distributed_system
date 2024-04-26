@@ -1,8 +1,8 @@
 package com.example.demo.magnus.executor;
 
-import com.alibaba.fastjson.JSON;
 import com.example.demo.config.common.service.RedisService;
 import com.example.demo.magnus.service.OrderService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import magnus.distributed.dict.MagnusRedisDict;
 import magnus.distributed.domain.delay.queue.DelayedJob;
@@ -42,22 +42,11 @@ public class OrderSuspendedCleanExecutor implements DelayJobHandlerExecutor, Dis
 
     @PostConstruct
     public void postHandle() {
-        threadPoolExecutor = new ThreadPoolExecutor(
-                corePoolSize,
-                maxPoolSize,
-                keepAliveTime,
-                TimeUnit.SECONDS,
-                new ArrayBlockingQueue<>(10),
-                Thread::new,
-                new ThreadPoolExecutor.DiscardOldestPolicy());
-        handleJobExecutor = new ThreadPoolExecutor(
-                1,
-                1,
-                0,
-                TimeUnit.SECONDS,
-                new ArrayBlockingQueue<>(1),
-                Thread::new,
-                new ThreadPoolExecutor.CallerRunsPolicy());
+        threadPoolExecutor = new ThreadPoolExecutor(corePoolSize, maxPoolSize, keepAliveTime, TimeUnit.SECONDS,
+                                                    new ArrayBlockingQueue<>(10), Thread::new,
+                                                    new ThreadPoolExecutor.DiscardOldestPolicy());
+        handleJobExecutor = new ThreadPoolExecutor(1, 1, 0, TimeUnit.SECONDS, new ArrayBlockingQueue<>(1), Thread::new,
+                                                   new ThreadPoolExecutor.CallerRunsPolicy());
         handleJobExecutor.submit(this::handleDelayedJob);
     }
 
@@ -69,6 +58,7 @@ public class OrderSuspendedCleanExecutor implements DelayJobHandlerExecutor, Dis
         for (; ; ) {
             // 执行逻辑
             // 每次从任务队列中获取一条记录
+            ObjectMapper objectMapper = new ObjectMapper();
             try {
                 if (destroyed) {
                     break;
@@ -78,7 +68,8 @@ public class OrderSuspendedCleanExecutor implements DelayJobHandlerExecutor, Dis
                 if (Objects.isNull(timeoutOrder)) {
                     continue;
                 }
-                redisService.zadd(MagnusRedisDict.REDIS_KEY_SUSPENDED_ORDER_IN_EXECUTION, timeoutOrder, Instant.now().plusSeconds(60).toEpochMilli());
+                redisService.zadd(MagnusRedisDict.REDIS_KEY_SUSPENDED_ORDER_IN_EXECUTION, timeoutOrder,
+                                  Instant.now().plusSeconds(60).toEpochMilli());
                 if (log.isDebugEnabled()) {
                     log.debug("timeout order {} scanned", timeoutOrder);
                 }
@@ -86,13 +77,14 @@ public class OrderSuspendedCleanExecutor implements DelayJobHandlerExecutor, Dis
                 if (delayedJobJson == null) {
                     // 这里是空的？
                     Order order = orderService.selectOrderById(Long.parseLong(timeoutOrder));
-                    System.out.println("----------- execution conflict order ID:  " + order.getId() + "  Status: " + order.getStatus());
+                    System.out.println(
+                            "----------- execution conflict order ID:  " + order.getId() + "  Status: " + order.getStatus());
                     continue;
                 }
-                DelayedJob delayedJob = JSON.parseObject(delayedJobJson, DelayedJob.class);
+                DelayedJob delayedJob = objectMapper.convertValue(delayedJobJson, DelayedJob.class);
                 // 修改数据库中此数据
-                Future<Boolean> submit = threadPoolExecutor.submit(() ->
-                        orderService.cancelSuspendedOrder(Long.valueOf(delayedJob.getJobId())));
+                Future<Boolean> submit = threadPoolExecutor.submit(
+                        () -> orderService.cancelSuspendedOrder(Long.valueOf(delayedJob.getJobId())));
                 // 成功？删除此Job
                 if (submit.get()) {
 //                    log.info("timeout order {} is deleted", timeoutOrder);
@@ -108,7 +100,8 @@ public class OrderSuspendedCleanExecutor implements DelayJobHandlerExecutor, Dis
                     }
                     // 没有超出重试次数，则重新放回job-pool中，并重新放到执行队列中
                     delayedJob.setRetry(delayedJob.getRetry() + 1);
-                    redisService.hset(MagnusRedisDict.REDIS_KEY_DELAYED_JOB_POOL, timeoutOrder, JSON.toJSONString(delayedJob));
+                    redisService.hset(MagnusRedisDict.REDIS_KEY_DELAYED_JOB_POOL, timeoutOrder,
+                                      objectMapper.writeValueAsString(delayedJob));
                     redisService.rpush(MagnusRedisDict.REDIS_KEY_ORDER_TOBE_WAITING_HANDLING, timeoutOrder);
                 }
             } catch (Exception e) {

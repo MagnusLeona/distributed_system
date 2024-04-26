@@ -1,9 +1,9 @@
 package com.example.demo.magnus.service.impl;
 
-import com.alibaba.fastjson.JSON;
 import com.example.demo.config.common.service.RedisService;
 import com.example.demo.magnus.mapper.OrderMapper;
 import com.example.demo.magnus.service.OrderService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCollapser;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
@@ -52,19 +52,14 @@ public class OrderServiceImpl implements OrderService {
     }
 
     // 请求合并
-    @HystrixCollapser(batchMethod = "batchMethod", scope = com.netflix.hystrix.HystrixCollapser.Scope.GLOBAL, collapserProperties = {
-            @HystrixProperty(name = HystrixPropertiesManager.TIMER_DELAY_IN_MILLISECONDS, value = "20"),
-            @HystrixProperty(name = HystrixPropertiesManager.MAX_REQUESTS_IN_BATCH, value = "20")
-    })
+    @HystrixCollapser(batchMethod = "batchMethod", scope = com.netflix.hystrix.HystrixCollapser.Scope.GLOBAL, collapserProperties = {@HystrixProperty(name = HystrixPropertiesManager.TIMER_DELAY_IN_MILLISECONDS, value = "20"), @HystrixProperty(name = HystrixPropertiesManager.MAX_REQUESTS_IN_BATCH, value = "20")})
     @Override
     public Future<Order> getOrder(Integer id) {
         return null;
     }
 
     // 线程池隔离
-    @HystrixCommand(threadPoolKey = "HystrixThreadA", commandProperties = {
-            @HystrixProperty(name = HystrixPropertiesManager.EXECUTION_ISOLATION_STRATEGY, value = "THREAD")
-    })
+    @HystrixCommand(threadPoolKey = "HystrixThreadA", commandProperties = {@HystrixProperty(name = HystrixPropertiesManager.EXECUTION_ISOLATION_STRATEGY, value = "THREAD")})
     @Override
     public void serviceInThreadA() {
         System.out.println("ServiceInThreadA:" + Thread.currentThread().getName());
@@ -89,27 +84,17 @@ public class OrderServiceImpl implements OrderService {
     }
 
     // 信号量隔离
-    @HystrixCommand(commandProperties = {
-            @HystrixProperty(name = HystrixPropertiesManager.EXECUTION_ISOLATION_STRATEGY, value = "SEMAPHORE"),
-            @HystrixProperty(name = HystrixPropertiesManager.EXECUTION_ISOLATION_SEMAPHORE_MAX_CONCURRENT_REQUESTS, value = "20")
-    })
+    @HystrixCommand(commandProperties = {@HystrixProperty(name = HystrixPropertiesManager.EXECUTION_ISOLATION_STRATEGY, value = "SEMAPHORE"), @HystrixProperty(name = HystrixPropertiesManager.EXECUTION_ISOLATION_SEMAPHORE_MAX_CONCURRENT_REQUESTS, value = "20")})
     public void testSemephoreIsolationA() {
         System.out.println("SemephoreIsolationA:" + Thread.currentThread().getName());
     }
 
-    @HystrixCommand(commandProperties = {
-            @HystrixProperty(name = HystrixPropertiesManager.EXECUTION_ISOLATION_STRATEGY, value = "SEMAPHORE"),
-            @HystrixProperty(name = HystrixPropertiesManager.EXECUTION_ISOLATION_SEMAPHORE_MAX_CONCURRENT_REQUESTS, value = "20")
-    })
+    @HystrixCommand(commandProperties = {@HystrixProperty(name = HystrixPropertiesManager.EXECUTION_ISOLATION_STRATEGY, value = "SEMAPHORE"), @HystrixProperty(name = HystrixPropertiesManager.EXECUTION_ISOLATION_SEMAPHORE_MAX_CONCURRENT_REQUESTS, value = "20")})
     public void testSemephoreIsolationB() {
         System.out.println("SemephoreIsolationB:" + Thread.currentThread().getName());
     }
 
-    @HystrixCommand(fallbackMethod = "failureFallback", commandProperties = {
-            @HystrixProperty(name = HystrixPropertiesManager.CIRCUIT_BREAKER_ERROR_THRESHOLD_PERCENTAGE, value = "50"),
-            @HystrixProperty(name = HystrixPropertiesManager.CIRCUIT_BREAKER_REQUEST_VOLUME_THRESHOLD, value = "20"),
-            @HystrixProperty(name = HystrixPropertiesManager.CIRCUIT_BREAKER_SLEEP_WINDOW_IN_MILLISECONDS, value = "20")
-    })
+    @HystrixCommand(fallbackMethod = "failureFallback", commandProperties = {@HystrixProperty(name = HystrixPropertiesManager.CIRCUIT_BREAKER_ERROR_THRESHOLD_PERCENTAGE, value = "50"), @HystrixProperty(name = HystrixPropertiesManager.CIRCUIT_BREAKER_REQUEST_VOLUME_THRESHOLD, value = "20"), @HystrixProperty(name = HystrixPropertiesManager.CIRCUIT_BREAKER_SLEEP_WINDOW_IN_MILLISECONDS, value = "20")})
     @Override
     public String testHystrixCommandFailure() {
         int i = 1 / 0;
@@ -133,12 +118,15 @@ public class OrderServiceImpl implements OrderService {
         // 存放任务索引id和任务的失效时间（不同的任务可能有不同的失效时间）
         try {
             while (true) {
-                if (!redisService.tryLock(MagnusRedisDict.REDIS_KEY_SUSPENDED_ORDER_LOCK)) {
+                if (Boolean.FALSE.equals(redisService.tryLock(MagnusRedisDict.REDIS_KEY_SUSPENDED_ORDER_LOCK))) {
                     continue;
                 }
-                redisService.zadd(MagnusRedisDict.REDIS_KEY_ORDER_TOBE_WAITING, String.valueOf(id), (double) Instant.now().plusSeconds(60).toEpochMilli());
+                redisService.zadd(MagnusRedisDict.REDIS_KEY_ORDER_TOBE_WAITING, String.valueOf(id),
+                                  Instant.now().plusSeconds(60).toEpochMilli());
                 // 存放任务的具体信息（这里其实可以简化，因为我这个业务场景并不复杂）
-                redisService.hset(MagnusRedisDict.REDIS_KEY_DELAYED_JOB_POOL, delayedJob.getJobId(), JSON.toJSONString(delayedJob));
+                ObjectMapper objectMapper = new ObjectMapper();
+                redisService.hset(MagnusRedisDict.REDIS_KEY_DELAYED_JOB_POOL, delayedJob.getJobId(),
+                                  objectMapper.writeValueAsString(delayedJob));
                 break;
             }
         } catch (Exception e) {
@@ -200,7 +188,8 @@ public class OrderServiceImpl implements OrderService {
             orderMapper.updateOrderStatus(id, OrderStatusEnum.HANGED.get(), OrderStatusEnum.PAID.get());
         }
         for (; ; ) {
-            Boolean locked = redisService.tryLockWithName(MagnusRedisDict.REDIS_KEY_SUSPENDED_ORDER_LOCK, "PayForTheOrders" + id);
+            Boolean locked = redisService.tryLockWithName(MagnusRedisDict.REDIS_KEY_SUSPENDED_ORDER_LOCK,
+                                                          "PayForTheOrders" + id);
             if (!locked) {
                 continue;
             }
